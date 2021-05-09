@@ -1,0 +1,20 @@
+* {
+   box-sizing: border-box;
+   margin: 0px;
+   padding: 0px;
+}
+body > form{
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 150px;
+    padding: 10px;
+    margin: 100px;
+    border-radius: 20px;
+    border: 1px solid black
+}
+
+body > form > div {
+    display: flex;
+    margin: 10px;
+}

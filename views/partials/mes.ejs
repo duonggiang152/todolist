@@ -1,0 +1,15 @@
+<% if(messages) { %>
+    <% messages.forEach((message) => { %>
+        <%- `${message}` %>
+    <% }) %>
+<% } %> 
+<% if(msg_errors) { %>
+    <% msg_errors.forEach((message) => { %>
+        <%- message %>
+    <% }) %>
+<% } %> 
+<% if(msg_success) { %>
+    <% msg_success.forEach((message) => { %>
+        <%-message %>
+    <% }) %>
+<% } %> 

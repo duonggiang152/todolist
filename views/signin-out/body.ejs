@@ -1,0 +1,35 @@
+<p>this is partial part</p>
+<%- include('../partials/mes') %>
+<p>------------------------</p>
+<body>
+    <form action="/users/login" method="POST">
+        <div class="form-group">
+        <label for="user">User</label>
+        <input type="text" id="user" name="user" placeholder="User">
+        </div>
+        <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id= "password" name="password">
+        </div>
+        <div class="form-group">
+            <input type="submit" name="submit-login">
+        </div>
+    </form>
+    <form action="/users/register" method="POST">
+        <div class="form-group">
+        <label for="user">User</label>
+        <input type="text" id="user" name="user" placeholder="User">
+        </div>
+        <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id= "password" name="password">
+        </div>
+        <div class="form-group">
+        <label for="password2">Password2</label>
+        <input type="password" id= "password2" name="password2">
+        </div>   
+        <div class="form-group">
+            <input type="submit" name="submit-register">
+        </div>
+    </form>
+</body>
