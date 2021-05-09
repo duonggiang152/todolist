@@ -8,7 +8,7 @@ const flash = require('connect-flash');
 const passport = require('passport');
 
 // App setup
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const app = express();
 
 // set flash
