@@ -1,7 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="responsive.css">
+    <title>Login</title>
+</head>
 <body>
     <header>
         <!-- set the header -->
-        <img  id="fristsvg" src="/static/img/fristsvg.svg" alt="">
+        <img  id="fristsvg" src="fristsvg.svg" alt="">
         <div>
             <div>
                 <span><span class="header-tittle">B</span>etter</span>
@@ -22,7 +32,7 @@
             <div class="login_slide_bar">
                 <div id="login_bar">
                     <div class="tittle"><span>Đăng nhập</span></div>
-                    <form class="form-login form_control" action ="/users/login" method="POST">
+                    <form class="form-login form_control" action ="/users/login">
                         <div class="form-group">
                             <label for="user">Tài Khoản</label>
                             <input type="text" name="user" placeholder="Tài khoản">
@@ -43,7 +53,7 @@
                 </div>
                 <div id="register_bar">
                     <div class="tittle"><span>Đăng Kí</span></div>
-                    <form class="form-register form_control" action="/users/register" method="POST">
+                    <form class="form-register form_control" action="/users/register">
                             <div class="form-group">
                                 <label for="user">Tài Khoản</label>
                                 <input type="text" name="user" placeholder="Tài khoản">
@@ -70,5 +80,6 @@
             </div>
         </div>
     </section>
-  <script src="/static/javascript/animation-login.js"></script>
+  <script src="animation-login.js"></script>
 </body>
+</html>

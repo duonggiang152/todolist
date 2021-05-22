@@ -4,6 +4,7 @@ const passport = require('passport');
 const router = express.Router();
 const User = require('../models/User')
 const {ensureAuthenticated} = require('../config/auth');
+const To_Do_List_Model = require('../models/todolist')
 router.get('/login',  (req, res) => {
    res.render('signin-out/body', {
        layout: 'signin-out/layout-signinout',
@@ -14,17 +15,6 @@ router.get('/login',  (req, res) => {
     }
    )
 });
-router.get('/todolist', ensureAuthenticated ,(req, res) => {
-    console.log(req.session);
-    console.log(req.sessionID)
-    res.render('todolist/body', {
-        layout: 'todolist/layout-todolist',
-        messages: res.locals.messages
-    })
-})
-router.get('/test', ensureAuthenticated, (req, res) => {
-    res.send(`<h1> ${req.session.viewcount}</h1>`)
-})
 router.post('/register', (req, res) => {
     let {user, password, password2} = req.body;
     if(password != password2 ) {
@@ -96,14 +86,21 @@ router.post('/register', (req, res) => {
             }
         })
 })
-router.post('/login', passport.authenticate('local', {  successRedirect: 'todolist',
-                                                        failureRedirect: 'login',
-                                                        failureFlash:true,
-                                                        successFlash: true
-                                                       }));
+router.post('/login', (req, res, next) => {
+   passport.authenticate('local' , (err, user, info) => {
+       if(!user) {
+           return res.send('404');
+       } else {
+           req.logIn(user, (err) => {
+               return res.redirect('/todolist/');
+           })
+       }
+   })(req, res, next);
+});
 router.get('/logout', (req, res) => {
     req.logOut();
     req.flash('messages', 'You are longout');
     res.redirect('/users/login');
 })
+
 module.exports = router;

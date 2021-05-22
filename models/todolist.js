@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 const db =  require('../config/key');
-var connect = undefined;
+
 class To_Do_List_Model{
     constructor(user) {
         this._user = user;
@@ -15,7 +15,9 @@ class To_Do_List_Model{
     // access database
     // this function return an promise in that day as date, time and content
     get_data_in_day() {
+        var connect = undefined;
         return new Promise((res, rej) => {
+     
         connect = mysql.createConnection(db)
         // 'self_todolist' have table or not, if don't have, create it
                 const sql = `create table if not exists self_todolist_${this._user} (
@@ -23,10 +25,11 @@ class To_Do_List_Model{
                     date DATE,
                     time time,
                     content nvarchar(500),
-                    bool isDone default false
+                    isDone bool default false
                 );`;
                 connect.query(sql, (err, result, info) => {
                     if(err) {
+                        console.log(err)
                         let newerr = new Error(`Err get_data_in_day: sảy ra lỗi khi tạo(hoặc kiểm tra) self_todolist_${this._user}`);
                         return rej(newerr);
                     } 
@@ -49,11 +52,55 @@ class To_Do_List_Model{
         })
 
     }
+    get_dynamic_data_in_day(from, to ) {
+        var connect = undefined;
+        return new Promise((res, rej) => {
+     
+        connect = mysql.createConnection(db)
+        // 'self_todolist' have table or not, if don't have, create it
+                const sql = `create table if not exists self_todolist_${this._user} (
+                    id bigint not null primary key auto_increment,
+                    date DATE,
+                    time time,
+                    content nvarchar(500),
+                    isDone bool default false
+                );`;
+                connect.query(sql, (err, result, info) => {
+                    if(err) {
+                        console.log(err)
+                        let newerr = new Error(`Err get_data_in_day: sảy ra lỗi khi tạo(hoặc kiểm tra) self_todolist_${this._user}`);
+                        return rej(newerr);
+                    } 
+                    return res(result);
+    
+                })
+        }) .then((value) => {
+            // get data from mysql
+            return new Promise((res,rej)=> {
+                let limit = to - from;
+                const sql = `select * from self_todolist_${this._user}
+                            order by date desc, time desc
+                            limit ${limit} offset ${from};`;
+                connect.query(sql, (err, result, info) => {
+                        if(err) {
+                            let newerr = new Error(`Err get_data_in_day: không thể truy cập vào self_todolist_${this._user}`);
+                            return rej(newerr);
+                        }
+                        connect.end();
+                        return res(result);
+                    })
+                })
+        })
+
+    }
     // thêm task công việc vào 
     add(todo_task,callback) {
+            var connect = undefined;
             let dateObject = new Date();
+          
             let year_month_date = `${dateObject.getFullYear()}-${dateObject.getMonth() + 1}-${dateObject.getDate()}`;
             let hour = `${dateObject.getHours()}:${dateObject.getMinutes()}`;
+            console.log(year_month_date)
             connect = mysql.createConnection(db);
             let sql = `insert into self_todolist_${this._user}(date, time, content)
                     value('${year_month_date}', '${hour}',N'${todo_task}')`;
@@ -70,6 +117,7 @@ class To_Do_List_Model{
     }
     // xóa task công việc theo id
     remove(id, callback) {
+        var connect = undefined;
         let sql = `delete from self_todolist_${this.user} where id = '${id}';`;
         connect = mysql.createConnection(db);
         connect.query(sql, (err, result, info) => {
@@ -85,6 +133,7 @@ class To_Do_List_Model{
     }
     isComplete(id, callback) {
         // is task complete or not
+        var connect = undefined;
         connect = mysql.createConnection(db);
         let sql = `select isDone from self_todolist_${this.user} where id = '${id}';`;
         connect.query(sql, (err, result, info) => {
@@ -105,6 +154,7 @@ class To_Do_List_Model{
     }
     setComplete(id,complete,callback){
         //set complete
+        var connect = undefined;
         connect = mysql.createConnection(db);
         let sql = `update self_todolist_${this.user}
                     set isDone = ${complete}
@@ -124,3 +174,13 @@ class To_Do_List_Model{
     }
 }
 module.exports = To_Do_List_Model;
+// let x = new To_Do_List_Model("giang");
+// // // x.get_data_in_day().then(result =>{
+// // //     console.log(result)
+// // // })
+// // // x.add("hello" , (err) => {
+// // //     console.log(err)
+// // // })
+// x.get_dynamic_data_in_day(0,10).then(result => {
+//     console.log(result);
+// })

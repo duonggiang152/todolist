@@ -20,9 +20,7 @@ module.exports = (passport) =>{
                   done(null, false, {message: 'tài khoản không tồn tại'});
                   return;
             } else {
-                   
                 if(results.Password === m_user.Password) {
-                    console.log('hello')
                    return done(null, m_user, {message: `chào ${m_user.User}`});
                 } else {
                    return done(null, false, {message: 'Tài khoản không tồn tại hoặc mật khẩu sai'});

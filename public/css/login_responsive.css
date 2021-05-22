@@ -1,0 +1,167 @@
+/* responsive */
+@media screen and (max-width: 640px) {
+    header > div:nth-child(2) > div:nth-child(1){
+        font-size: 18px;
+    }
+    header > div:nth-child(2) > div:nth-child(2) {
+        font-size: 30px;
+    }
+    #login-btn{
+        font-size: 18px;
+    }
+    #fristsvg{
+        width: 160px;
+        height: 200px;
+    }
+}
+@media screen and (max-width: 600px) {
+    /* box login-signup */
+    /* --------------- */
+    #login-section > div {
+        position: absolute;
+        display: flex;
+        overflow: hidden;
+        flex-wrap: wrap;
+        width: 90vw;
+        height: 80vh;
+        top: 50%;
+        left: 50%;
+        transform: translate(calc(-50%), -50%);
+        background-color: rgba(168, 168, 168, 0.4);
+        border-radius: 20px;
+        backdrop-filter: blur(20px);
+    }
+    /* -------------------- */
+    /* login slid bar */
+    /* ---------------------- */
+    .login_slide_bar {
+        display: flex;
+        position: relative;
+        left: 0px;
+        width: 180vw;
+        height: 80vh;
+        outline: black 1px solid;
+        transition: left 0.6s ease ;
+    }
+    /* --------------------- */
+    /* message suggest */
+    /* -------------- */
+    .login_slide_bar > div > div:nth-child(3) {
+        position: absolute;
+        bottom: 20px;
+    }
+    /* ------------- */
+    
+    /* animation slide bar */
+    /* ---------------- */
+    .login_slide_bar_animation {
+        left: -90vw;
+    }
+    /* ----------------- */
+    
+    /* input form */
+    /* ----------- */
+    #login-section > div > div > div {
+        width: 90vw;
+        height: 80vh;
+        overflow: hidden;
+    }
+    /* --------------- */
+    
+    /* tittle */
+    /* ----------------- */
+    .tittle {
+        padding: 5px;
+        font-size: 40px;
+        font-weight: 600;
+        color: rgb(255, 255, 255);
+    }
+    /* ----------------- */
+    
+    /* set form style*/
+    /* ------------------ */
+    .form_control {
+        display: flex;
+        flex-direction: column;
+        align-content: space-between;
+        width: 90vw;
+        height: 80vh;
+        min-height: 400px;
+    }
+    .form_control > div {
+        margin-bottom: 30px;
+        margin-top: 10px;
+    }
+    .form-group > label {
+        font-size: 4vw;
+        position: absolute;
+        left: 10px;
+    }
+    .form-group > input {
+        font-size: 4vw;
+        position: absolute;
+        right: 10px;
+    }
+    .form-group {
+        display: flex;
+        align-content: space-between;
+        position: relative;
+        padding: 5px;
+    }
+    /* -------------------- */
+    
+    /* btn */
+    #send-login, #send-register {
+        font-size: 4vw;
+        font-weight: 600;
+        outline: none;
+        margin: none;
+        border: none;
+        background-color: rgb(16, 236, 71);
+        color: white;
+        margin: 0px;
+        padding: 10px;
+        border-radius: 20px;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .btn_form {
+        padding: 5px;
+        width: 40px;
+        height: 40px;
+        background-color: rgb(18, 19, 18);
+        /* border-radius: 30px; */
+    }
+    #login_bar > div:nth-child(2) {
+        font-size: 4vw;
+    }
+    #xnmk {
+        font-size: 14px;
+        position: relative;
+        bottom: 5px;
+    }
+    /* .suggest {
+        display: none;
+    } */
+}
+@media screen and (max-width: 400px) {
+    header > div:nth-child(2) > div:nth-child(1){
+        font-size: 14px;
+    }
+    header > div:nth-child(2) > div:nth-child(2) {
+        font-size: 22px;
+    }
+    #login-btn{
+        font-size: 16px;
+    }
+    #fristsvg{
+        width: 130px;
+        height: 170px;
+    }
+}
+@media screen and (max-width: 300px) {
+    header {
+        display: none;
+    }
+}

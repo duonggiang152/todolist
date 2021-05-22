@@ -6,7 +6,7 @@ const express = require('express');
 const expressLayouts =  require('express-ejs-layouts');
 const flash = require('connect-flash');
 const passport = require('passport');
-
+const path = require('path')
 // App setup
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -14,23 +14,15 @@ const app = express();
 // set flash
 app.use(flash());
 
-
 //body parser
 app.use(express.urlencoded({extended: false}))
+app.use(express.json());
 //set publicfolder
 app.use(express.static('public'))
 require('./config/passport-config')(passport)
 //config sesstion
 require('./config/mysql_session')(app);
 
-
-
-app.use((req, res, next) => {
-    console.log(req.session);
-    console.log(req.sessionID);
-    console.log(req.session.passport)
-    next();
-})
 
 
 // set passport
@@ -50,14 +42,14 @@ app.use( (req, res, next) => {
 // ejs setup
 app.set('view engine', 'ejs');
 app.use(expressLayouts);
-// app.set('layout', 'layout/signinout')
 
-// Set Layout
-// app.set('layout', './layout')
+// set public
+app.use('/static',express.static(path.join(__dirname, 'public')))
 
 app.get('/', (req, res) => {
     res.redirect('/users/login')
 })
+app.use('/todolist', require('./routers/todolist'))
 app.use('/users', require('./routers/users'));
 app.listen(PORT, (err) => {
     if(err) throw err;
