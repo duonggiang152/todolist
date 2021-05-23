@@ -6,10 +6,20 @@ const express = require('express');
 const expressLayouts =  require('express-ejs-layouts');
 const flash = require('connect-flash');
 const passport = require('passport');
-const path = require('path')
+const path = require('path');
 // App setup
 const PORT = process.env.PORT || 3000;
 const app = express();
+// setup iosocket
+const http = require('http');
+const server = http.createServer(app);
+const Server = require('socket.io')
+const io     = Server(server)
+
+// setup session for socketio and express
+let session = require('express-session');
+
+require('./config/mysql_session')(app, session, io);
 
 // set flash
 app.use(flash());
@@ -21,7 +31,7 @@ app.use(express.json());
 app.use(express.static('public'))
 require('./config/passport-config')(passport)
 //config sesstion
-require('./config/mysql_session')(app);
+
 
 
 
@@ -51,7 +61,7 @@ app.get('/', (req, res) => {
 })
 app.use('/todolist', require('./routers/todolist'))
 app.use('/users', require('./routers/users'));
-app.listen(PORT, (err) => {
+server.listen(PORT, (err) => {
     if(err) throw err;
     console.log(`Server started on port: ${PORT}`)
 });;

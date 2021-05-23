@@ -23,6 +23,19 @@
     <div id="tittle-name">
         <span>Xin chào</span>
         <span id = 'tittle'> <%- messages %></span>
+        
+    </div>
+    <div id="nav-bar">
+        <div>
+            <p>Công ty của bạn</p>
+            <ul id="company-list">
+            </ul>
+            <button>Tạo</button>
+        </div>
+        <div>List công việc của bạn</div>
+        <div>
+            <p>Lịch Làm việc trên công ty</p>
+        </div>
     </div>
     <div>
         <form id="submit-task">
@@ -34,6 +47,7 @@
         </div>
     </div>
     <a href="/todolist/logout">logout</a>
+    <div id="chatbox"></div>
     <script>
         var count_task = 0;
         const list_task = document.getElementById('list-task');
@@ -88,7 +102,6 @@
             xhr.send(json);
         })
         function convertFDtoJSON(fd) {
-      
             let json = {};
             for(let key of fd.keys()){
                json[key] = fd.get(key);
@@ -96,6 +109,10 @@
             console.log(json)
             return json;
         }
+    </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
     </script>
 </body>
 </html>

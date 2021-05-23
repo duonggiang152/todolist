@@ -12,7 +12,7 @@ router.get('/', ensureAuthenticated ,(req, res) => {
         layout: 'todolist/layout-todolist',
         messages: req.user.User
     })
-        
+      
 })
 router.post('/gettask', ensureAuthenticated, (req, res) => {
     let {start, end} = req.body;
