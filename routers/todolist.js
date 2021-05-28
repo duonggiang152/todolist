@@ -1,6 +1,5 @@
 const { json } = require('express');
 const express = require('express');
-const { Strategy } = require('passport');
 const router = express.Router();
 const passport = require('passport')
 const {ensureAuthenticated} = require('../config/auth');

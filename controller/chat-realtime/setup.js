@@ -1,6 +1,5 @@
 module.exports = (session, io) => {
     sharedsession = require("express-socket.io-session");
-   
     // authentication middlerware
     io.use(sharedsession(session))
     io.use((socket, next) => {
