@@ -15,7 +15,6 @@ module.exports = (passport) =>{
     let m_user = new User(user, password);
     User.findOne(m_user)
         .then((results) => {
-           
             if(results === null) {
                   done(null, false, {message: 'tài khoản không tồn tại'});
                   return;

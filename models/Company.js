@@ -82,8 +82,8 @@ class Company {
                 Company.isCompanyexist(company_name)
                     .then(result => {
                         if(!result)
-                        {
-                  
+                        {   
+                            
                            let sql = `  insert into companies(Company_name, director, namespace) 
                                         value('${company_name}', '${data.username}', 'namespace_of_${company_name}');`; 
                             const connect = Mysql.createConnection(db);
@@ -93,6 +93,7 @@ class Company {
                                 Company.GetCompanybyName(company_name)
                                 .then(data_company => {
                                     Company.CreateCompanyMemberTable(data_company.id).then(check => {
+                                        User.add_user_company(director_id, company_name, 'director');
                                         console.log(`Created companytable for company ${data_company.Company_name}`);
                                     })
                                     .catch(err => {

@@ -7,7 +7,7 @@ User class
 */
 const mysql = require('mysql');
 const db = require('../config/key');
-const connect = mysql.createConnection(db);
+
 class User{
     constructor(user, password)
     {
@@ -30,7 +30,9 @@ class User{
         // sql to list all member
         return new Promise((res, rej) => {
             let sql = `select * from user`;
+            const connect = mysql.createConnection(db);
             connect.query(sql, (err, data) => {
+                connect.end()
                 if(err) throw err;
                 data = JSON.stringify(data);
                 res(JSON.parse(data))
@@ -40,8 +42,10 @@ class User{
     static getIdOfUser(user) {
         return new Promise((res, rej) => {
         let sql = `select * from user
-                    where username = '${user}'`
+                    where username = '${user}'`;
+        const connect = mysql.createConnection(db);
         connect.query(sql,(err, data) => {
+            connect.end();
             data = JSON.stringify(data);
             data = JSON.parse(data)
             res(data[0].id)
@@ -51,6 +55,7 @@ class User{
     static getUser(id) {
         return new Promise((res, rej) => {
             let sql = `select * from user where id = ${id}`;
+            const connect = mysql.createConnection(db);
             connect.query(sql,(err, data) => {
                 connect.end();
                if(err) throw err;
@@ -66,8 +71,11 @@ class User{
             .then(data => {
                 let sql = ` insert into list_message_${data.id}(user, messages, type) 
                             value('${data.username}', '${message}', '${type}');`;
+                const connect = mysql.createConnection(db);
                 connect.query(sql, (err, data) => {
+                    connect.end();
                     if(err) throw err;
+                  
                 })
 
             })
@@ -80,8 +88,11 @@ class User{
             .then(data => {
                 let sql = ` insert into list_company_${data.id}(user, company, position) 
                 value('${data.username}', '${company_name}', '${position}');`;
-                connect.query(sql, (err, data) => {
+                const connect = mysql.createConnection(db);
+                connect.query(sql, (err, datas) => {
+                    connect.end();
                     if(err) throw err;
+                    console.log(`${data.username} joined ${company_name}`)
                 })
             })
             .catch(err => {
@@ -89,6 +100,7 @@ class User{
             })
     }
     static logconnect() {
+        const connect = mysql.createConnection(db);
         connect.connect((err) => {
             if(err) throw err;
             console.log('connect success!!!!');
@@ -97,7 +109,9 @@ class User{
     }
     static findOne(user) {
         return new Promise((resolve, reject) => {
-                connect.query(`select * from user where username = '${user.User}';`, (err, results, info) => {
+                    const connect = mysql.createConnection(db);
+                    connect.query(`select * from user where username = '${user.User}';`, (err, results, info) => {
+                    connect.end();
                     if(err) 
                     {
                         throw err;
@@ -115,6 +129,7 @@ class User{
     static Add(user) {
         return new Promise((resolve, reject) => {
             let sql = `insert into user(username, password) value('${user.User}', '${user.Password}');`;
+            const connect = mysql.createConnection(db);
             connect.query(sql, (err, results, info) => {
                 if(err) {
                     resolve(false);

@@ -86,7 +86,7 @@ router.post('/register', (req, res) => {
             }
         })
 })
-router.post('/login', (req, res, next) => {
+router.post('/login',(req, res, next) => {
    passport.authenticate('local' , (err, user, info) => {
        if(!user) {
            return res.send('404');

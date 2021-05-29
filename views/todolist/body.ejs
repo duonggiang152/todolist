@@ -4,116 +4,73 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/todolist/html/todolist_style.css">
     <title>Todolist</title>
-    <style>
-        #listtask > div {
-            padding: 30px;
-        }
-        #tittle-name {
-            font-size: 50px;
-            font-weight: 600;
-        }
-        .task {
-            padding: 20px;
-            font-size: 24px;
-        }
-    </style>
 </head>
 <body>
-    <div id="tittle-name">
-        <span>Xin chào</span>
-        <span id = 'tittle'> <%- messages %></span>
-        
+    <div id="color-for-back-ground">
+        <div></div>
+        <div></div>
     </div>
-    <div id="nav-bar">
-        <div>
-            <p>Công ty của bạn</p>
-            <ul id="company-list">
-            </ul>
-            <button>Tạo</button>
+    <header>
+        <div id="logo">Better plan Better work</div>
+        <div id="tittle-name">
+            <span>Xin chào</span>
+            <span id = 'tittle'> <%- messages %></span>
         </div>
-        <div>List công việc của bạn</div>
-        <div>
-            <p>Lịch Làm việc trên công ty</p>
-        </div>
-    </div>
-    <div>
-        <form id="submit-task">
-            <input type="text" id="task_submit_content" name="task_content" placeholder="....">
-            <button type="submit" id="submit">send</button>
-           
-        </form>
-        <div id="list-task">
-        </div>
-    </div>
-    <a href="/todolist/logout">logout</a>
-    <div id="chatbox"></div>
-    <script>
-        var count_task = 0;
-        const list_task = document.getElementById('list-task');
-        // display task to browser
-        const dp = (json) => {
-            let data = 
-            `
-            <div class = "task">
-                <div class = "task-content">${json.content}</div>
-                <div class = "task-date">${json.date}</div>
-                <div class = "task-time">${json.time}</div>
-                <div class = "task-isDone" id = "task-done-${count_task++}">${json.isDone}</div>
+    </header>
+    <a href="/todolist/logout" id="logout">OUT</a>
+    <section id="section-nav-bar">
+        <div id="nav-bar">
+            <div> 
+                <img id="company-show-btn"
+                src="/static/todolist/html/arrow.svg"
+                alt="press to show more"
+                height="20px"
+                width="15px" />
+                <p>Your company</p>
+                <div id="Companies_List" class="my-company-display">
+                   
+                    <ul id="company-list">
+                    </ul>
+                    <button>Tạo</button>
+                </div>
             </div>
-            `;
-            let x = list_task.innerHTML;
-            list_task.innerHTML= x + data;
-        }
-        // function to get task
-        const gettask = (start, end) => {
-            count_task = count_task + end - start + 1;
-            let json = {};
-            json.start = start;
-            json.end   =  end;
-            let h = new Headers();
-            h.append('Content-Type', 'application/json');
-            fetch('/todolist/gettask', {
-                method: 'POST',
-                headers: h,
-                body: JSON.stringify(json)
-            }).then(res => res.json())
-                .then(res => {
-                    res.forEach(element => {
-                        dp(element);
-                    });
-                    console.log(res)
-                })
-        }
-        document.addEventListener('DOMContentLoaded', function() {
-            gettask(1,10);   
-        }, false);
-        var task_submit = document.getElementById('submit-task');
-        var task_submit_content = document.getElementById('task_submit_content');
-        task_submit.addEventListener('submit', (e) => {
-            console.log('ok')
-            e.preventDefault();
-            let formdata = new FormData(task_submit);
-            let json = convertFDtoJSON(formdata);
-            json = JSON.stringify(json);
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', '/todolist/add');
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.send(json);
-        })
-        function convertFDtoJSON(fd) {
-            let json = {};
-            for(let key of fd.keys()){
-               json[key] = fd.get(key);
-            }
-            console.log(json)
-            return json;
-        }
-    </script>
-    <script>
-        // animation and display script
-        
-    </script>
+            <div>
+                <img id="company-show-btn-2"
+                src="/static/todolist/html/arrow.svg"
+                alt="press to show more"
+                height="20px"
+                width="15px" />
+                <p>Companies joined</p>
+                <div id="Companies_Joined_List" class="my-company-display">
+                <ul id="company-joined">
+                    <li>113213</li>
+                </ul>
+                </div>
+            </div>
+            <div>List task</div>
+            <div>
+                <p>Company Task</p>
+            </div>
+        </div>
+    </section>
+    <section id="todotask">
+        <div>
+            <form id="submit-task">
+                <input type="text" id="task_submit_content" name="task_content" placeholder="....">
+                <button type="submit" id="submit">send</button>
+            
+            </form>
+            <div id="list-task">
+            </div>
+        </div>
+    </section>
+  
+    <div id="chatbox"></div>
+    <script src="/static/todolist/javascript/activeainmation.js"></script>
+    <script src="/static/todolist/javascript/Gettask.js"></script>
+    <script src="/todolist/javascript/UpdateCompanyList.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();

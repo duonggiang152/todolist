@@ -3,16 +3,65 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport')
 const {ensureAuthenticated} = require('../config/auth');
-const To_Do_List_Model = require('../models/todolist')
+const To_Do_List_Model = require('../models/todolist');
+const User = require('../models/User');
+const Company = require('../models/Company');
 router.get('/', ensureAuthenticated ,(req, res) => {
     // get 10 task 
-  
+    
     res.render('todolist/body', {
         layout: 'todolist/layout-todolist',
         messages: req.user.User
     })
-      
 })
+router.get('/getcompany', ensureAuthenticated, (req, res) => {
+    User.getIdOfUser(req.user.User)
+        .then(id => {
+            Company.ListCompanies(id).then(datas=> {
+                res.send(datas)
+            })
+        })
+    
+})
+// todo word add
+// -----------------
+router.post('/createcompany', ensureAuthenticated, (req, res) => {
+    User.getIdOfUser(req.user.User)
+        .then(id => {
+            let data = req.body;
+            res.setHeader('Content-Type', 'application/json');
+            if(data && data.company_name) {
+                Company.CreateCompany(id,data.company_name)
+                        .then(result => {
+                            if(!result) {
+                                console.log(`Can't create company "${data.company_name}" for ${req.user.User}`);
+                                let message = {
+                                    "message": "Company_name exist!!!",
+                                }
+                                return res.send(message)
+                            }
+                            // else {
+                            let json =  {
+                                "scucess": `giang has created ${data.company_name}`,
+                            }
+                            res.send(json)
+                            // }
+                        })
+                        .catch(err => {
+                            console.log('Error in routers/todolist.js/post-createcompany');
+                            throw err;
+
+                        });
+            }
+            else {
+                let json =  {
+                                "err": "post err",
+                            }
+                res.send(json);
+            }
+        })
+})
+// 
 router.post('/gettask', ensureAuthenticated, (req, res) => {
     let {start, end} = req.body;
     let data = new To_Do_List_Model(req.user.User)

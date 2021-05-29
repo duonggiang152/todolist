@@ -3,7 +3,10 @@ module.exports = (session, io) => {
     // authentication middlerware
     io.use(sharedsession(session))
     io.use((socket, next) => {
-        if(socket.handshake.session.passport.user)
+        // console.log(socket.handshake.session.passport)
+        // console.log('ok')
+        // next();
+        if(socket.handshake.session.passport && socket.handshake.session.passport.user)
         {
            next();
         }
