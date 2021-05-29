@@ -48,6 +48,46 @@ class User{
         })
         })
     }
+    static getUser(id) {
+        return new Promise((res, rej) => {
+            let sql = `select * from user where id = ${id}`;
+            connect.query(sql,(err, data) => {
+                connect.end();
+               if(err) throw err;
+               data = JSON.stringify(data);
+               data = JSON.parse(data);
+               res(data[0])
+            })
+        })
+       
+    }
+    static add_user_mesage(user_id, message, type) {
+        User.getUser(user_id)
+            .then(data => {
+                let sql = ` insert into list_message_${data.id}(user, messages, type) 
+                            value('${data.username}', '${message}', '${type}');`;
+                connect.query(sql, (err, data) => {
+                    if(err) throw err;
+                })
+
+            })
+            .catch(err => {
+                throw err;
+            })
+    }
+    static add_user_company(user_id, company_name, position){
+        User.getUser(user_id)
+            .then(data => {
+                let sql = ` insert into list_company_${data.id}(user, company, position) 
+                value('${data.username}', '${company_name}', '${position}');`;
+                connect.query(sql, (err, data) => {
+                    if(err) throw err;
+                })
+            })
+            .catch(err => {
+                throw err;
+            })
+    }
     static logconnect() {
         connect.connect((err) => {
             if(err) throw err;

@@ -31,7 +31,7 @@ const setup = () => {
             id bigint primary key not null primary key auto_increment,
             Company_name nvarchar(50),
             director varchar(50),
-            namspace varchar(50)
+            namespace varchar(50)
         );`;
         connect.query(sql, (err, result, info) => {
             connect.end();
@@ -74,7 +74,6 @@ const setup = () => {
                                 console.log('setup user table: failed')
                                 throw err    
                             }
-                        
                             connect.end();
                         })
                     })
