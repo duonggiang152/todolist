@@ -1,3 +1,4 @@
+const { json } = require('express');
 const mysql = require('mysql');
 const db =  require('../config/key');
 
@@ -110,8 +111,16 @@ class To_Do_List_Model{
                     let newerr = new Error('Lỗi không thể thêm công việc');
                     callback(newerr);
                     return;
+                    
                 }
-                connect.end();
+                let sql2 = `select * from self_todolist_${this._user} order by id desc limit 1`
+                connect.query(sql2 , (err, data123) => {
+                    connect.end();
+                    data123 = JSON.stringify(data123);
+                    data123 = JSON.parse(data123);
+                   callback(null, data123[0])
+
+                })
                 console.log(`success message : User(${this._user}) đã thêm 1 task công việc`);
             })
     }
@@ -174,13 +183,3 @@ class To_Do_List_Model{
     }
 }
 module.exports = To_Do_List_Model;
-// let x = new To_Do_List_Model("giang");
-// // // x.get_data_in_day().then(result =>{
-// // //     console.log(result)
-// // // })
-// // // x.add("hello" , (err) => {
-// // //     console.log(err)
-// // // })
-// x.get_dynamic_data_in_day(0,10).then(result => {
-//     console.log(result);
-// })

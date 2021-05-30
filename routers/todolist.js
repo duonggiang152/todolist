@@ -14,14 +14,23 @@ router.get('/', ensureAuthenticated ,(req, res) => {
         messages: req.user.User
     })
 })
-router.get('/getcompany', ensureAuthenticated, (req, res) => {
+router.get('/getcompanyown', ensureAuthenticated, (req, res) => {
     User.getIdOfUser(req.user.User)
         .then(id => {
-            Company.ListCompanies(id).then(datas=> {
+            Company.ListCompaniesofID(id).then(datas=> {
                 res.send(datas)
             })
         })
     
+})
+router.get('/getcompanyjoined', ensureAuthenticated, (req, res) => {
+    User.getIdOfUser(req.user.User)
+        .then(id => {
+            User.list_all_company_joined(id)
+                .then(data => {
+                    res.send(data)
+                })
+        })
 })
 // todo word add
 // -----------------
@@ -65,7 +74,7 @@ router.post('/createcompany', ensureAuthenticated, (req, res) => {
 router.post('/gettask', ensureAuthenticated, (req, res) => {
     let {start, end} = req.body;
     let data = new To_Do_List_Model(req.user.User)
-    data.get_dynamic_data_in_day(1,10)
+    data.get_dynamic_data_in_day(0,10)
         .then(result => {
             let obj = [];
             result.forEach(element => {      
@@ -82,12 +91,17 @@ router.post('/gettask', ensureAuthenticated, (req, res) => {
 router.post('/add',ensureAuthenticated, (req,res) => {
     let user = req.user.User;
     let task = new To_Do_List_Model(user);
-    console.log(req.body);
     console.log(req.body.task_content);
-    task.add(req.body.task_content,(err) => {
-        console.log(err.messages)
+    task.add(req.body.task_content,(err, data) => {
+        res.header('Content-Type', 'application/json')
+        if(err) {
+            json = {
+                "err": true
+            };
+            return res.send(json)
+        }
+        return res.send(data);
     });
-    res.send('successed sending data')
 })
 router.get('/logout', (req, res) => {
     req.logOut();

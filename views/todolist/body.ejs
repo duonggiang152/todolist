@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/todolist/html/todolist_style.css">
+    <link rel="stylesheet" href="/static/todolist/html/task_list_style.css">
     <title>Todolist</title>
 </head>
 <body>
@@ -30,7 +31,6 @@
                 width="15px" />
                 <p>Your company</p>
                 <div id="Companies_List" class="my-company-display">
-                   
                     <ul id="company-list">
                     </ul>
                     <button>Tạo</button>
@@ -45,7 +45,7 @@
                 <p>Companies joined</p>
                 <div id="Companies_Joined_List" class="my-company-display">
                 <ul id="company-joined">
-                    <li>113213</li>
+                   
                 </ul>
                 </div>
             </div>
@@ -58,9 +58,9 @@
     <section id="todotask">
         <div>
             <form id="submit-task">
-                <input type="text" id="task_submit_content" name="task_content" placeholder="....">
-                <button type="submit" id="submit">send</button>
-            
+                <textarea placeholder="type task in here" rows="3" name="task_content" id="task-box" ></textarea>
+                <input type="submit" id="submit-task-box" value="send">
+              
             </form>
             <div id="list-task">
             </div>
@@ -70,7 +70,7 @@
     <div id="chatbox"></div>
     <script src="/static/todolist/javascript/activeainmation.js"></script>
     <script src="/static/todolist/javascript/Gettask.js"></script>
-    <script src="/todolist/javascript/UpdateCompanyList.js"></script>
+    <script src="/static/todolist/javascript/UpdateCompanyList.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
