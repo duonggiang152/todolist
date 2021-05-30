@@ -1,4 +1,3 @@
-
 /*
 User class
     - constructsure take 2  argument 
@@ -25,6 +24,19 @@ class User{
     }
     set User(user) {
         this._user = user
+    }
+    static list_all_company_joined(id) {
+        return new Promise((res) => {
+            const connect = mysql.createConnection(db);
+            let sql = `select * from list_company_${id} where position = 'employee';`;
+            connect.query(sql, (err, datas) => {
+                connect.end();
+                if(err) throw err;
+                datas = JSON.stringify(datas);
+                datas = JSON.parse(datas);
+                res(datas)
+            })
+        })
     }
     static list_all_member() {
         // sql to list all member

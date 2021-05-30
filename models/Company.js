@@ -46,7 +46,7 @@ class Company {
         })
         })
     }
-    static ListCompanies(user_id) {
+    static ListCompaniesofID(user_id) {
         return User.getUser(user_id)
                     .then(data => {
                         return new Promise((res) =>{
