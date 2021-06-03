@@ -70,12 +70,19 @@ textarea:focus, input:focus{
 .task-content {
     position: relative;
 }
+.task-content > p {
+    width: 100%;
+    display: inline-block;
+    word-break: break-all;
+    white-space: pre-wrap;
+}
 .task-isDone {
     position: absolute;
     top: 0px;
     right: 0px;
 }
 #task-box {
+    white-space: pre-wrap;
     resize: none;
     border-radius: 5px;
     padding: 6px;

@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/todolist/html/todolist_style.css">
@@ -71,6 +70,7 @@
                 <div id="btn-active-calendar"> <p>Chọn ngày</p></div>
                 <div id="lich" class="date-picker"></div>
                 <div id="task-type">Trạng thái</div>
+                <div id="date-content">date content</div>
             </div>
           
             <div id="list-task">
@@ -81,22 +81,70 @@
     <div id="chatbox"></div>
     <script src="/static/calendar/js/main.js"></script>
     <script>
+      
+    </script>
+    <script src="/static/todolist/type_task_bar/trangthai.js"></script>
+    <script>
+        const months = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "Decomber"
+        ]
+        const days = [
+            "SU",
+            "MO",
+            "TU",
+            "WE",
+            "TU",
+            "FR",
+            "SA"
+        ];
+        var date = new Date();
+        var type_bar = 0;
+        function updateTimeSelect() {
+            const TimeBox = document.getElementById('date-content');
+            let tt ;
+            switch(type_bar) {
+                case 0:
+                    tt = "ALL";
+                    break;
+                case 1:
+                    tt = "DONE";
+                    break;
+                case 2:
+                    tt = "NotDone"
+            }
+            let content = `
+                <div>${days[date.getDay()]}, ${date.getDate()} / ${date.getMonth() + 1} / ${date.getFullYear()}</div>
+                <div>${tt}</div>
+            `
+            TimeBox.innerHTML = content
+        }
+        updateTimeSelect();
         setupcalendar((data) => {
-            console.log(data)
+            date = data;
+            updateTimeSelect();
         })
         function activeCalendar() {
             const activebtn = document.getElementById('btn-active-calendar');
             console.log(activebtn)
-            activebtn.addEventListener('l', (e) => {
+            activebtn.addEventListener('click', (e) => {
                 document.getElementById('lich').classList.toggle('active-calendar')
             })
         }
         activeCalendar()
-    </script>
-    <script src="/static/todolist/type_task_bar/trangthai.js"></script>
-    <script>
         setupTypeTaskBar(data => {
-            console.log(data);
+            type_bar = data;
+            updateTimeSelect();
         });
     </script>
     <script src="/static/todolist/javascript/activeainmation.js"></script>

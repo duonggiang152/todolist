@@ -3,6 +3,7 @@ function getTask() {
     const list_task = document.getElementById('list-task');
     // display task to browser
     const dp = (json, isAppen = true) => {
+        console.log(json.content)
         let btn_part;
         if(json.isDone) {
             btn_part = `

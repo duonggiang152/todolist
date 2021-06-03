@@ -23,3 +23,10 @@
 #chose-day > .active-calendar {
     display: block;
 }
+#date-content {
+    color: rgb(119, 74, 74);
+    font-size: 10px;
+    font-family: 'Roboto', sans-serif;
+    position: absolute;
+    right: 0px;
+}
