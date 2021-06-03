@@ -18,7 +18,7 @@ function getTask() {
         `
         <div class = "task">
             <div class = "task-content">
-            ${json.content}
+            <p>${json.content}</p>
             <div class = "task-isDone" id = "task-done-${count_task++}">
             ${btn_part}
             </div>

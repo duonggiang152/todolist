@@ -4,6 +4,8 @@
     padding: 0px;
     margin: 0px;
 }
+
+
 body {
     margin: auto;
     max-width: 3000px;
@@ -125,11 +127,11 @@ body {
     right : 10px;
     color: black;
 }
-#section-nav-bar > div >    div:nth-child(3),
-#section-nav-bar > div >    div:nth-child(4)
+section:nth-child(1) > div >    div:nth-child(3), 
+section:nth-child(1) > div >    div:nth-child(4)
 {
     
-    background-color: rgba(255, 255, 255,0.1);
+    background-color: rgba(41, 12, 12, 0.1);
 }
 #section-nav-bar > div >    div:nth-child(1):hover,
 #section-nav-bar > div >    div:nth-child(2):hover,
@@ -144,4 +146,10 @@ body {
 /* animation */
 .my-company-display {
     display: none;
+}
+/* animatin bar */
+.on-action-bar {
+    background-color: rgba(94, 87, 87, 0.9);
+    color: white;
+    pointer-events: none;
 }

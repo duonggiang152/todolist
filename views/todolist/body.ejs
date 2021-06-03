@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/todolist/html/todolist_style.css">
+    <link rel="stylesheet" href="/static/calendar/css/main.css">
     <link rel="stylesheet" href="/static/todolist/html/task_list_style.css">
+    <link rel="stylesheet" href="/static/todolist/css/date_picker_config.css">
+    <link rel="stylesheet" href="/static/todolist/type_task_bar/trangthai.css">
     <title>Todolist</title>
 </head>
 <body>
@@ -49,7 +54,7 @@
                 </ul>
                 </div>
             </div>
-            <div>List task</div>
+            <div id="your-task">Your Task</div>
             <div>
                 <p>Company Task</p>
             </div>
@@ -60,14 +65,40 @@
             <form id="submit-task">
                 <textarea placeholder="type task in here" rows="3" name="task_content" id="task-box" ></textarea>
                 <input type="submit" id="submit-task-box" value="send">
-              
             </form>
+            <div id="chose-day">
+                
+                <div id="btn-active-calendar"> <p>Chọn ngày</p></div>
+                <div id="lich" class="date-picker"></div>
+                <div id="task-type">Trạng thái</div>
+            </div>
+          
             <div id="list-task">
             </div>
         </div>
     </section>
   
     <div id="chatbox"></div>
+    <script src="/static/calendar/js/main.js"></script>
+    <script>
+        setupcalendar((data) => {
+            console.log(data)
+        })
+        function activeCalendar() {
+            const activebtn = document.getElementById('btn-active-calendar');
+            console.log(activebtn)
+            activebtn.addEventListener('l', (e) => {
+                document.getElementById('lich').classList.toggle('active-calendar')
+            })
+        }
+        activeCalendar()
+    </script>
+    <script src="/static/todolist/type_task_bar/trangthai.js"></script>
+    <script>
+        setupTypeTaskBar(data => {
+            console.log(data);
+        });
+    </script>
     <script src="/static/todolist/javascript/activeainmation.js"></script>
     <script src="/static/todolist/javascript/Gettask.js"></script>
     <script src="/static/todolist/javascript/UpdateCompanyList.js"></script>

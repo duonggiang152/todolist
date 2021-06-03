@@ -11,4 +11,10 @@ function activeAnimation() {
         company_joined_list.classList.toggle('my-company-display');
     })
 }
+function activechoseyourtask() {
+    const Yourtask = document.getElementById('your-task');
+    Yourtask.classList.add('on-action-bar');
+
+}
+activechoseyourtask()
 activeAnimation();

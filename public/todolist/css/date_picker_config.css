@@ -1,0 +1,25 @@
+
+#chose-day {
+    display: flex;
+}
+#chose-day > :nth-child(1) {
+    background-color: rgb(126, 126, 126);
+    width: 80px;
+    text-align: center;
+    padding: 5px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+#chose-day > :nth-child(2) {
+    display: none;
+    position: absolute;
+    top: 5px;
+    left: 81px;
+    z-index: 999;
+    background-color: white;
+}
+#chose-day > .active-calendar {
+    display: block;
+}

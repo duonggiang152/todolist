@@ -43,6 +43,7 @@ textarea:focus, input:focus{
     font-family: 'Roboto', sans-serif;
     background: rgba(124, 196, 124,0.2);
     position: absolute;
+    top: 0px;
     right: 5px;
     width: 50px;
     height: 50px;
@@ -75,15 +76,19 @@ textarea:focus, input:focus{
     right: 0px;
 }
 #task-box {
+    resize: none;
+    border-radius: 5px;
+    padding: 6px;
     font-family: 'Roboto', sans-serif;
     color: rgb(107, 107, 107);
     width: 800px;
     border: none;
     background-color: rgba(211, 210, 210,0.1);
-    transition: background-color 2s ease;
+    transition: background-color 0.3s ease;
 }
 #task-box:focus {
-    background-color: rgba(235, 235, 235, 0.4);
+  
+    background-color: rgba(255, 255, 255, 0.8);
 }
 /* make btn */
 
@@ -100,6 +105,4 @@ textarea:focus, input:focus{
     background-color: rgba(252, 1, 1, 0.1);
 }
 /* checking btn button in task */
-.check-box-active {
-    background-color: rgb(18, 236, 73);
-}
+

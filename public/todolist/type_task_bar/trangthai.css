@@ -1,0 +1,42 @@
+
+#task-type {
+    font-size: 18px;
+}
+#task-type > :nth-child(1) {
+    background-color: rgb(126, 126, 126);
+   
+    width: 80px;
+    text-align: center;
+    padding: 5px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#task-type {
+    position: relative;
+}
+#task-type > :nth-child(2) {
+    width: 80px;
+    display: none;
+    color: white;
+    position: absolute;
+    text-align: center;
+    height: 100%;
+    top: 0px;
+    left: 80px;
+    z-index: 5;
+    margin-left: 5px;
+    cursor: pointer;
+}
+#task-type > div > div {
+    background-color: rgb(163, 162, 162);
+    /* background-color: linear-gradient(to bottom, #30e8bf, #ff8235); */
+    margin-bottom: 2px;
+}
+#task-type > .active-type-bar {
+    display: flex;
+    flex-direction: column;
+}
+#task-type > div > .active-type-bar-btn {
+    background-color: rgb(51, 51, 51);
+}

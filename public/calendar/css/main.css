@@ -1,0 +1,122 @@
+/* * {
+    margin: 0px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    color: white; 
+
+    background-color: rgb(56, 56, 56);
+} */
+.date-picker {
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 600;
+    /* margin: auto; */
+    width: 200px;
+    height: 253px;
+    /* background-color: rgba(240, 239, 239, 0.6); */
+    background: linear-gradient(to bottom, #30e8bf, #ff8235);
+    overflow: hidden;
+    outline: white solid 1px;
+    box-shadow: 0px 3px 4px 0px;
+}
+.date-picker > .month {
+    height: 80px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.date-picker > .month > :nth-child(1) {
+    position: relative;
+    left: 5px;
+}
+.date-picker > .month > :nth-child(3) {
+    position: relative;
+    right: 5px;
+}
+.date-picker > .month > .date > h1 {
+    text-align: center;
+}
+.weekdays {
+    font-size: 13px;
+    height: 25px;
+    padding: 0px 5px;  
+    display: flex;
+    
+  
+}
+.weekdays > div {
+    height: 100%;
+    width: calc(290px / 7);
+    background-color: rgba(255, 255, 255,0.1);
+    position: relative;
+}
+.weekdays > div > p {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.days {
+    position: relative;
+    top: 3px;
+    height: 120px;
+    padding: 0px 5px;  
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+.days > div {
+    width: calc(190px / 7);
+    height: calc(120px / 5);
+    text-align: center;
+    position: relative;
+    transition: all 500ms ease;
+    transition-property: background-color, color;
+    cursor: pointer;
+ 
+}
+.days > .days_today {
+    background-color: rgb(25, 75, 32);
+}
+.days > .days:hover  {
+    cursor: pointer;
+    background-color: rgb(12, 12, 12) !important;
+    color: white;
+}
+.days > div > p{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.month > i {
+}
+.month > i:hover {
+    cursor: pointer;
+    background-color: rgb(12, 12, 12) !important;
+    color: white;
+}
+.fade_day {
+    opacity: 0.3;
+}
+/* creent date */
+.curent-month > p {
+   font-size: 15px;
+   font-weight: 300;
+   border-top: white solid 1px;
+   text-align: center;
+}
+.chose_day {
+    cursor: pointer;
+    background-color: rgb(12, 12, 12) !important;
+    color: white;
+}
