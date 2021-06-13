@@ -1,3 +1,14 @@
+/*
+    File contain CRUD in todolist page
+*/
+/*
+   self todolist router
+   /getask
+   /add
+   /deletelist/:idtask
+   /getlistby/:day/:date/:month/:year
+*/
+
 const { json } = require('express');
 const express = require('express');
 const router = express.Router();
@@ -8,7 +19,6 @@ const User = require('../models/User');
 const Company = require('../models/Company');
 router.get('/', ensureAuthenticated ,(req, res) => {
     // get 10 task 
-    
     res.render('todolist/body', {
         layout: 'todolist/layout-todolist',
         messages: req.user.User
@@ -70,7 +80,7 @@ router.post('/createcompany', ensureAuthenticated, (req, res) => {
             }
         })
 })
-// 
+// self todolist
 router.post('/gettask', ensureAuthenticated, (req, res) => {
     let {start, end} = req.body;
     let data = new To_Do_List_Model(req.user.User)
@@ -78,12 +88,9 @@ router.post('/gettask', ensureAuthenticated, (req, res) => {
         .then(result => {
             let obj = [];
             result.forEach(element => {      
-                 let json = {};
-                 json.date    = element.date;
-                 json.time    = element.time;
-                 json.content = element.content;
-                 json.isDone  = element.isDone; 
-                 obj.push(json);
+                element = JSON.stringify(element);
+                element = JSON.parse(element);
+                obj.push(element);
             });
             res.send(obj)
             })
@@ -103,14 +110,78 @@ router.post('/add',ensureAuthenticated, (req,res) => {
         return res.send(data);
     });
 })
+
+router.post('/addbycondition/:date/:month/:year', (req, res) => {
+    let date = parseInt(req.params.date);
+    let month = parseInt(req.params.month);
+    let year = parseInt(req.params.year);
+    let dateObj = new Date(year, month, date);
+    console.log(dateObj);
+    
+    let task = new To_Do_List_Model(user);
+    task.add(req.body.task_content,(err, data) => {
+        res.header('Content-Type', 'application/json')
+        if(err) {
+            json = {
+                "err": true
+            };
+            return res.send(json)
+        }
+        return res.send(data);
+    }, dateObj);
+})
+
 router.get('/logout', (req, res) => {
     req.logOut();
     req.flash('messages', 'You are longout');
     res.redirect('/users/login');
 })
-router.post('/test', (req, res) => {
-    console.log(req.header)
-    console.log(req.body);
-    res.send('i resive it');
+
+// CRUD Taslist
+router.post('/deletelist/:idtask', ensureAuthenticated, (req, res) => {
+    const idtask = req.params.idtask;
+    let data = new To_Do_List_Model(req.user.User);
+    data.remove(idtask, (err) => {
+        if(err) return res.send('404');
+        res.send(`${req.user} đã xóa task-list ${idtask}`);
+    })
+})
+router.post('/getlistby/:date/:month/:year/:condition', ensureAuthenticated, (req, res) => {
+    let condition = parseInt(req.params.condition);
+    let date = parseInt(req.params.date);
+    let month = parseInt(req.params.month);
+    let year = parseInt(req.params.year);
+    let dateObj = new Date(year, month, date);
+    let data = new To_Do_List_Model(req.user.User);
+    if(condition === 3) {
+    data.getDataInDate(dateObj, (err, data) => {
+        if(err) return res.send('404');
+        return res.send(data);
+    })
+    }
+    if(condition === 0 || condition === 1) {
+        data.getDataInDateAndCondition(dateObj, condition, (err, data) => {
+            if(err) return res.send('404');
+            return res.send(data);
+        })
+    }
+})
+
+// update is done
+router.post('/updatecondition/:idtask/:condition', ensureAuthenticated, (req, res) => {
+    const idtask    = req.params.idtask;
+    let condition = req.params.condition;
+    condition = parseInt(condition)
+    let data = new To_Do_List_Model(req.user.User);
+    data.updateconditiontask(idtask,condition, (err) => {
+        if(err) {
+            let message = `${req.user.User} get err when update condition in task ${idtask} in self_task_Table`;
+            console.log(message)
+            return res.send('404')
+        };
+        let message = `${req.user.User} scucess when update condition in task ${idtask} in self_task_Table`;
+        console.log(message)
+        res.send('ok');
+    })
 })
 module.exports = router;

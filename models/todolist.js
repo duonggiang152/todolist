@@ -1,4 +1,4 @@
-const { json } = require('express');
+
 const mysql = require('mysql');
 const db =  require('../config/key');
 
@@ -95,10 +95,9 @@ class To_Do_List_Model{
 
     }
     // thêm task công việc vào 
-    add(todo_task,callback) {
+    add(todo_task,callback, dateObject) {
+           if(dateObject === undefined) dateObject = new Date();
             var connect = undefined;
-            let dateObject = new Date();
-          
             let year_month_date = `${dateObject.getFullYear()}-${dateObject.getMonth() + 1}-${dateObject.getDate()}`;
             let hour = `${dateObject.getHours()}:${dateObject.getMinutes()}`;
             console.log(year_month_date)
@@ -136,6 +135,7 @@ class To_Do_List_Model{
                 callback(newerr);
                 return;
             }
+            callback(false)
             connect.end();
             console.log(`success message : User(${this._user}) đã xóa 1 task công việc`);
         })
@@ -161,6 +161,21 @@ class To_Do_List_Model{
             return;
         })
     }
+    updateconditiontask(id, condition, callback) {
+        var connect = undefined;
+        let sql = ` update self_todolist_${this.user}
+                    set isDone = ${condition}
+                    where id = '${id}';`;
+        connect = mysql.createConnection(db);
+        connect.query(sql, (err, data) => {
+            connect.end();
+            if(err) {
+                console.log("err")
+                callback(err);
+            }
+            callback(false)
+        })
+    }
     setComplete(id,complete,callback){
         //set complete
         var connect = undefined;
@@ -168,7 +183,7 @@ class To_Do_List_Model{
         let sql = `update self_todolist_${this.user}
                     set isDone = ${complete}
                     where id = ${id};`;
-        connect.query(sql, (err, result, info) => {
+            connect.query(sql, (err, result, info) => {
             connect.end();
             if(err) {
                 let newerr = new Error('server gặp vấn đề');
@@ -179,6 +194,42 @@ class To_Do_List_Model{
             console.log(`success message : User(${this._user}) đã hoàn thành 1 công việc`);
             callback(null, result);
             return;
+        })
+    }
+    getDataInDate(date, callback) {
+        let sqldate = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
+        let sql = `select * from self_todolist_${this.user}
+        where date = '${sqldate}';`;
+        let connect = mysql.createConnection(db);
+        connect.query(sql, (err, data) => {
+            connect.end();
+            if(err) callback(err);
+            if(!data) {
+                console.log('ok')
+                callback(null, []);
+                return;
+            }
+            data = JSON.stringify(data);
+            data = JSON.parse(data);
+            callback(null,data);
+        })
+    }
+    getDataInDateAndCondition(date, condition, callback) {
+        let sqldate = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
+        let sql = `select * from self_todolist_${this.user}
+        where date = '${sqldate}' and isDone = ${condition} ;`;
+        let connect = mysql.createConnection(db);
+        connect.query(sql, (err, data) => {
+            connect.end();
+            if(err) callback(err);
+            if(!data) {
+                console.log('ok')
+                callback(null, []);
+                return;
+            }
+            data = JSON.stringify(data);
+            data = JSON.parse(data);
+            callback(null,data);
         })
     }
 }

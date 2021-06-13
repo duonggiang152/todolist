@@ -13,6 +13,7 @@
     cursor: pointer;
 }
 #task-type {
+
     position: relative;
 }
 #task-type > :nth-child(2) {

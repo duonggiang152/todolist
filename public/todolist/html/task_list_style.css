@@ -1,3 +1,8 @@
+/* 
+    style id = "TODOTASK"
+*/
+
+/* set default input */
 input {border:0;outline:0;}
 input:focus {outline:none!important;}
 button {
@@ -8,36 +13,32 @@ button {
 textarea#story {
     -moz-appearance:none;
     outline:0px none transparent;
-  }
-  
+}
 textarea:focus, input:focus{
       outline: 0;
 }
+/* ----------------------------------- */
+
+/*  style todotask*/
+
+/*  style default  */
 #todotask {
     width: 68vw;
     margin-top: 140px;
     position: relative;
     left: calc(50% + 150px);
     transform: translateX(-50%);
-    overflow: hidden;
+}
+/* --------------------------- */
 
-}
-#list-task > div {
-    padding: 10px;
-    width: 100%;
-    /* outline: black 1px solid; */
-    background-color: rgba(145, 145, 145,0.1);
-    background: blur(10%);
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
-    color: rgb(107, 107, 107);
-}
+/* Input style box */
 #todotask > div > #submit-task {
     width: 100%;
     margin-bottom: 40px;
     position: relative;
     
 }
+
 #submit-task-box {
     color: rgb(107, 107, 107);
     font-family: 'Roboto', sans-serif;
@@ -56,31 +57,6 @@ textarea:focus, input:focus{
     color: rgb(73, 56, 56);
     background: rgba(29, 209, 29, 1);
 }
-#list-task > div {
-    margin-top: 10px;
-}
-#list-task > div > div:nth-child(2) {
-    display: flex;
-    font-size: 9px;
-    color: rgb(151, 89, 89);
-}
-#list-task > div > div:nth-child(2) > div {
-    margin-left: 5px;
-}
-.task-content {
-    position: relative;
-}
-.task-content > p {
-    width: 100%;
-    display: inline-block;
-    word-break: break-all;
-    white-space: pre-wrap;
-}
-.task-isDone {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-}
 #task-box {
     white-space: pre-wrap;
     resize: none;
@@ -97,8 +73,48 @@ textarea:focus, input:focus{
   
     background-color: rgba(255, 255, 255, 0.8);
 }
-/* make btn */
+/* ------------------------------ */
 
+/* style list task */
+#list-task > div {
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
+    background-color: rgba(145, 145, 145,0.1);
+    background: blur(10%);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: rgb(107, 107, 107);
+}
+/* detail time and date */
+#list-task > div > div:nth-child(2) {
+    display: flex;
+    font-size: 9px;
+    color: rgb(151, 89, 89);
+}
+#list-task > div > div:nth-child(2) > div {
+    margin-left: 5px;
+}
+/* main content and btn check done */
+.task-content {
+    display: flex;
+    position: relative;
+}
+.task-content > p {
+    width: calc(100% - 30px);
+    display: inline-block;
+    word-break: break-all;
+    white-space: pre-wrap;
+}
+.task-isDone {
+    width: 30px;
+    height: 30px;
+}
+
+/* ------------------------------- */
+
+
+/* make btn */
 .task-isDone {
     display: flex;
 }
